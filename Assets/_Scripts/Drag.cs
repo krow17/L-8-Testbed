@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +6,9 @@ public class Drag : MonoBehaviour
 {
     private Vector3 screenPoint;
     private Vector3 offset;
+
+    public Vector3 moveVector;
+
     // Use this for initialization
     void Start()
     {
@@ -28,6 +31,13 @@ public class Drag : MonoBehaviour
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
         Vector3 curPosition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
-        transform.position = curPosition;
+        //print("Current Position: " + curPosition);
+        //print("Current Screen Point: " + curScreenPoint);
+        //transform.position = curPosition;
+
+        moveVector = curPosition - transform.position;
+        GetComponent<Rigidbody>().AddForceAtPosition(moveVector * 160.0f, transform.position - offset);
     }
+
+   
 }
