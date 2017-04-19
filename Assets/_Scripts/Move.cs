@@ -19,14 +19,14 @@ public class Move : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-<<<<<<< HEAD
+
         //constantHeight = transform.position.y;	
-=======
+
 		if(toMove)
         {
             StartCoroutine(Reposition());
         }
->>>>>>> origin/master
+
 	}
 
     // Update is called once per frame
@@ -95,11 +95,11 @@ public class Move : MonoBehaviour {
         if (Select_Manager.sm.contact_1.transform.position != Select_Manager.sm.contact_2.transform.position)
         {
             moveVector = new Vector3(Select_Manager.sm.contact_2.transform.position.x, 0.0f, Select_Manager.sm.contact_2.transform.position.z) - new Vector3(Select_Manager.sm.contact_1.transform.position.x, 0.0f, Select_Manager.sm.contact_1.transform.position.z);
-<<<<<<< HEAD
+
             Select_Manager.sm.contact_1.GetComponent<Rigidbody>().AddForceAtPosition(moveVector * 100.0f, Select_Manager.sm.contact_1.transform.position);
-=======
+
             Select_Manager.sm.contact_1.GetComponent<Rigidbody>().AddForceAtPosition(moveVector * 50.0f, Select_Manager.sm.contact_1.transform.position);
->>>>>>> origin/master
+
         }
         else
         {
