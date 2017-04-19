@@ -39,4 +39,16 @@ public class Select_Manager : MonoBehaviour {
     {
 		 
 	}
+
+    public void Reset()
+    {
+        selected = false;
+        contact_selectecd = false;
+
+        contact_1 = null;
+        contact_2 = null;
+        selected_L = null;
+
+        distance = 0.0f;
+    }
 }

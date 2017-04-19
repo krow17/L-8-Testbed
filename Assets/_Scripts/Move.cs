@@ -9,19 +9,26 @@ public class Move : MonoBehaviour {
     private Vector3 screenPoint;
     private Vector3 offset;
 
+    private float constantHeight;
+
     public Vector3 moveVector;
+
+    public bool toMove = false;
 
 
     // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    void Start ()
     {
-		
+        //constantHeight = transform.position.y;	
 	}
+
+    // Update is called once per frame
+    void Update()
+    {
+        // transform.position = new Vector3(transform.position.x, constantHeight, transform.position.z);
+        //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX;
+        //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ;
+    }
 
     void OnMouseDown()
     {
@@ -45,19 +52,14 @@ public class Move : MonoBehaviour {
             //get distance from contact_1 to contact_2, and get the direction vector
             Select_Manager.sm.distance = Vector3.Distance(Select_Manager.sm.contact_2.transform.position, Select_Manager.sm.contact_1.transform.position);
             print(Select_Manager.sm.distance);
+            toMove = true;
 
             //get move vector 
-            StartCoroutine(Reposition());
-            Select_Manager.sm.contact_1.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
-
-            Select_Manager.sm.selected = false;
-            Select_Manager.sm.contact_1 = null;
-            Select_Manager.sm.contact_2 = null;
-            Select_Manager.sm.selected_L = null;
+            
         }
 
-        else if (Select_Manager.sm.selected == true &&  this.tag == "contact") //select a contact point you'd like to manipulate
+        else if (Select_Manager.sm.selected == true && this.tag == "contact") //select a contact point you'd like to manipulate
         {
             print("contact 1 was selected");
             Select_Manager.sm.contact_1 = this.gameObject;
@@ -67,8 +69,7 @@ public class Move : MonoBehaviour {
             Select_Manager.sm.contact_selectecd = true;
         }
 
-        screenPoint = Camera.main.WorldToScreenPoint(transform.position);
-        offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
+     
     }
 
     void OnTriggerEnter(Collider other)
@@ -84,11 +85,16 @@ public class Move : MonoBehaviour {
 
     IEnumerator Reposition()
     {
-        if(Select_Manager.sm.contact_1.transform.position != Select_Manager.sm.contact_2.transform.position)
+        if (Select_Manager.sm.contact_1.transform.position != Select_Manager.sm.contact_2.transform.position)
         {
             moveVector = new Vector3(Select_Manager.sm.contact_2.transform.position.x, 0.0f, Select_Manager.sm.contact_2.transform.position.z) - new Vector3(Select_Manager.sm.contact_1.transform.position.x, 0.0f, Select_Manager.sm.contact_1.transform.position.z);
-            Select_Manager.sm.contact_1.GetComponent<Rigidbody>().AddForce(moveVector * 100.0f);
+            Select_Manager.sm.contact_1.GetComponent<Rigidbody>().AddForceAtPosition(moveVector * 100.0f, Select_Manager.sm.contact_1.transform.position);
         }
+        else
+        {
+            toMove = false;
+        }
+        
         yield return new WaitForSeconds(1);
     }
 
