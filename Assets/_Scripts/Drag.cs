@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,8 +9,11 @@ public class Drag : MonoBehaviour
 
     public Vector3 moveVector;
 
+<<<<<<< HEAD
     private float constantHeight;
 
+=======
+>>>>>>> origin/master
     // Use this for initialization
     void Start()
     {
@@ -39,6 +42,7 @@ public class Drag : MonoBehaviour
         //transform.position = curPosition;
 
         moveVector = curPosition - transform.position;
+<<<<<<< HEAD
         GetComponent<Rigidbody>().AddForceAtPosition(moveVector * 360.0f, transform.position - offset);
     }
 
@@ -54,4 +58,10 @@ public class Drag : MonoBehaviour
     }
 
 
+=======
+        GetComponent<Rigidbody>().AddForceAtPosition(moveVector * 160.0f, transform.position - offset);
+    }
+
+   
+>>>>>>> origin/master
 }
